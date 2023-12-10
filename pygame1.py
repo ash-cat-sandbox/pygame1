@@ -73,14 +73,7 @@ def guess():
                 print("You did it! You guessed the word " + answer)
                 print("New Game starting")
                 new_game()
-            askPlayer()
-            move = input()
-            if move == "g":
-                guess()
-            elif move == "w":
-                guess_Word()
-            elif move == "q":
-                exit()          
+               
         else:
             if counter <= 0:
                 print("Oh no! Too many guesses, you lost partner\n New game starting!")
@@ -89,7 +82,7 @@ def guess():
                 print("Nope! No " + x + " in the word")
                 counter_down()
                 print(str(counter) + " guesses remaining")
-                guess()
+                askPlayer()
     
     if counter == 0:
         print("Oh no! Too many guesses, you lost partner\n New game starting!")

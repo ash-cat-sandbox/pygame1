@@ -104,6 +104,7 @@ def new_game():
     print("New Game Started!")
     reset_counter()
     word()
+    askPlayer()
     
 
 new_game()  

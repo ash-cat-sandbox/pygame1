@@ -64,18 +64,20 @@ def guess_Word():
         print("You did it! \nYou guessed the word " + answer)
         print("\nNew Game starting")
         new_game()
-    elif x != answer:
-        print("Sorry, wrong guess")
+    else: 
         counter_down()
+        print("Sorry, wrong guess. You have " + str(counter) + " guesses remaining")
+
         if counter <= 0:
             print("You lose. The word was " + answer)
             print("New Game starting")
             new_game()
+        else:
+            askPlayer()
+
     
 def guess():
 
-    '''Originally, I had in range, and x would automatically decrease, which is why I couldn't figure out why it was decreasing each go around
-    needed to fix it using while'''
     global answer_list
     global guessed_answer
 
@@ -85,25 +87,18 @@ def guess():
 
     while counter != 0:
         x = input("What letter would you like to guess? ")
-        if guessed(x, answer, guessed_answer): #if true,  then print the guessed string which is a joined list of the so far guessed answer
+        if x in answer_list: #if true,  then print the guessed string which is a joined list of the so far guessed answer
+            guessed(x, answer, guessed_answer) 
             guessed_string = ''.join(guessed_answer)
             print(guessed_string)
+            print("Correct! There is a " + x + " in the word")
+            print(answer_list)
+            print(guessed_answer)
+            answer_list = answer_list
+            askPlayer()
     
-    
-    
-        
-
-       
         #answer_list = remove_items(answer_list, x)
-            
-
-            #put x in the index of answer list but have everything else removed
-            
-        print("Correct! There is a " + x + " in the word")
-        print(answer_list)
-        print(guessed_answer)
-        answer_list = answer_list
-
+         
         if not answer_list:
             print("You did it! You guessed the word " + answer)
             print("New Game starting")

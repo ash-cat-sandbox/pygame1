@@ -43,6 +43,10 @@ def guessed(choice, answer, guessed_answer):
 
 
 def askPlayer():
+    if counter == 0:
+        print("Oh no! Too many guesses, you lost partner\n New game starting!")
+        new_game()
+    print("\nGuesses remaining: " + str(counter))
 
     print(("\nWould you like to guess a letter or guess the word?\n" +
                    "Type g if you would like to guess a letter.\n" +
@@ -82,7 +86,7 @@ def guess():
     global guessed_answer
 
     print(answer_list)
-    print("Guesses remaining: " + str(counter))
+    print("\nGuesses remaining: " + str(counter))
     
 
     while counter != 0:
@@ -95,14 +99,15 @@ def guess():
             print(answer_list)
             print(guessed_answer)
             answer_list = answer_list
+            if guessed_answer == answer_list:
+                print("You did it! You guessed the word " + answer)
+                print("New Game starting")
+                new_game()
             askPlayer()
     
         #answer_list = remove_items(answer_list, x)
          
-        if not answer_list:
-            print("You did it! You guessed the word " + answer)
-            print("New Game starting")
-            new_game()
+        
                
         else:
             if counter <= 0:
@@ -114,9 +119,7 @@ def guess():
                 print(str(counter) + " guesses remaining")
                 askPlayer()
     
-    if counter == 0:
-        print("Oh no! Too many guesses, you lost partner\n New game starting!")
-        new_game()
+    
 
 def remove_items(test_list, item): 
     # using list comprehension to perform the task 

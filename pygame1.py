@@ -18,6 +18,8 @@ def reset_counter():
 def word():
     global answer
     answer = random.choice(words.word_list)
+    if any(not c.isalpha() for c in answer):
+        word()
     global length
     length = len(answer)
     print("Length of word is " + str(length))
@@ -39,8 +41,6 @@ def guessed(choice, answer, guessed_answer):
 
     return updated 
 
-    
-
 
 def askPlayer():
     if counter == 0:
@@ -59,7 +59,10 @@ def askPlayer():
     elif move == "w":
         guess_Word()
     elif move == "q":
-        exit()      
+        exit()
+    else:
+        print("not a valid choice, please select a valid option")
+        askPlayer()      
     
 def guess_Word():
     global counter

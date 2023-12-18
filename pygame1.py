@@ -18,6 +18,8 @@ def reset_counter():
 def word():
     global answer
     answer = random.choice(words.word_list)
+    answer.casefold()
+    print(answer)
     if any(not c.isalpha() for c in answer):
         word()
     global length
@@ -25,10 +27,8 @@ def word():
     print("Length of word is " + str(length))
     global guessed_answer 
     guessed_answer = ['_'] * length
-    print(answer)
     global answer_list
     answer_list = ([*answer])
-    print(answer_list)
 
 
 # the player's guess function
@@ -44,7 +44,9 @@ def guessed(choice, answer, guessed_answer):
 
 def askPlayer():
     if counter == 0:
-        print("Oh no! Too many guesses, you lost partner\n New game starting!")
+        print("Oh no! Too many guesses, you lost partner")
+        print("The word was " + answer)
+        print("\n\nNew game starting!")
         new_game()
     print("\nGuesses remaining: " + str(counter))
 
@@ -53,7 +55,7 @@ def askPlayer():
                    "Type w if you would like to guess the word.\n" +
                    "Type q if you would like to stop playing\n"))
      
-    move = input()
+    move = input().casefold()
     if move == "g":
         guess()
     elif move == "w":
@@ -61,12 +63,12 @@ def askPlayer():
     elif move == "q":
         exit()
     else:
-        print("not a valid choice, please select a valid option")
+        print("Not a valid choice, please select a valid option")
         askPlayer()      
     
 def guess_Word():
     global counter
-    x = input("What do you think the word is? ")
+    x = input("What do you think the word is? ").casefold()
     if x == answer:
         print("You did it! \nYou guessed the word " + answer)
         print("\nNew Game starting")
@@ -74,6 +76,9 @@ def guess_Word():
     else: 
         counter_down()
         print("Sorry, wrong guess. You have " + str(counter) + " guesses remaining")
+        guessed(x, answer, guessed_answer) 
+        guessed_string = ''.join(guessed_answer)
+        print(guessed_string)
 
         if counter <= 0:
             print("You lose. The word was " + answer)
@@ -88,19 +93,15 @@ def guess():
     global answer_list
     global guessed_answer
 
-    print(answer_list)
     print("\nGuesses remaining: " + str(counter))
     
-
     while counter != 0:
-        x = input("What letter would you like to guess? ")
+        x = input("What letter would you like to guess? ").casefold()
         if x in answer_list: #if true,  then print the guessed string which is a joined list of the so far guessed answer
             guessed(x, answer, guessed_answer) 
             guessed_string = ''.join(guessed_answer)
             print(guessed_string)
             print("Correct! There is a " + x + " in the word")
-            print(answer_list)
-            print(guessed_answer)
             answer_list = answer_list
             if guessed_answer == answer_list:
                 print("You did it! You guessed the word " + answer)
@@ -109,25 +110,26 @@ def guess():
             askPlayer()
     
         #answer_list = remove_items(answer_list, x)
-         
-        
                
         else:
             if counter <= 0:
-                print("Oh no! Too many guesses, you lost partner\n New game starting!")
+                print("Oh no! Too many guesses, you lost partner")
+                print("The word was " + answer)
+                print("\n\nNew game starting!")
                 new_game()
             else:
                 print("Nope! No " + x + " in the word")
                 counter_down()
+                guessed(x, answer, guessed_answer) 
+                guessed_string = ''.join(guessed_answer)
+                print(guessed_string)
                 print(str(counter) + " guesses remaining")
                 askPlayer()
     
-    
-
-def remove_items(test_list, item): 
+'''def remove_items(test_list, item): 
     # using list comprehension to perform the task 
     res = [i for i in test_list if i != item]   
-    return res 
+    return res '''
 
 def new_game():
     print("New Game Started!")
@@ -137,5 +139,4 @@ def new_game():
         print("_", end=" ")
     askPlayer()
     
-
 new_game()  

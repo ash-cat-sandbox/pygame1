@@ -19,7 +19,7 @@ def word():
     global answer
     answer = random.choice(words.word_list)
     answer.casefold()
-    print(answer)
+    #print(answer)
     if any(not c.isalpha() for c in answer):
         word()
     global length
